@@ -1,60 +1,24 @@
 import Cocoa
 
-print("Welcome to your virtual bank system. What kind of account would you like to make?\n1. Debit account\n2. Credit account\n3. Bank account")
-
-var accountType = ""
-var input = 0
-
-repeat {
-    print("Which option do you choose? (1, 2 or 3)")
-    input = Int.random(in:1...5)
-    print("The selected option is \(input).")
-    
-    switch (input) {
-    case 1:
-        accountType = "debit"
-        break
-    case 2:
-        accountType = "credit"
-        break
-    case 3:
-        accountType = "generic"
-        break
-    default:
-        break
-    }
-} while (accountType == "")
-
-print("You have opened a \(accountType) account.")
-
-var balance = 100
 func getBalanceInfo() -> String {
     "Current balance: $\(balance)"
 }
-print(getBalanceInfo())
-func withdraw(_ amount:Int) {
+func withdraw(_ amount: Int) {
     balance -= amount
     print("Withdrew: $\(amount). \(getBalanceInfo())")
 }
-withdraw(20)
-
-func debitWithdraw(_ amount:Int){
+func debitWithdraw(_ amount: Int) {
     if amount > balance {
-        print("Insufficient fund to withdraw $\(amount). \(getBalanceInfo())")
+        print("Insufficient funds to withdraw $\(amount). \(getBalanceInfo())")
     } else {
         withdraw(amount)
     }
 }
-debitWithdraw(81)
-debitWithdraw(80)
-
-func deposit(_ amount:Int){
+func deposit(_ amount: Int) {
     balance += amount
     print("Deposited $\(amount). \(getBalanceInfo())")
 }
-deposit(100)
-
-func creditDeposit(_ amount:Int){
+func creditDeposit(_ amount: Int) {
     deposit(amount)
     if balance == 0 {
         print("Paid off account balance.")
@@ -62,7 +26,68 @@ func creditDeposit(_ amount:Int){
         print("Overpaid account balance.")
     }
 }
-withdraw(200)
-creditDeposit(50)
-creditDeposit(50)
-creditDeposit(100)
+print("Welcome to your virtual bank system. What kind of account would you like to make?")
+print("1. Debit account")
+print("2. Credit account")
+print("3. Bank account")
+var accountType = ""
+var input = 0
+repeat {
+    print("Which option do you choose? (1, 2 or 3)")
+    input = Int.random(in: 1...3)
+    print("Selected option: \(input)")
+    switch input {
+    case 1: accountType = "debit"
+    case 2: accountType = "credit"
+    case 3: accountType = "generic"
+    default: break
+    }
+} while accountType == ""
+var balance = 100
+let transferAmount = 50
+print("Current balance: $\(balance)")
+print("Transfer amount: $\(transferAmount)")
+
+var transferType = "withdraw"
+
+func transferMoney(_ transferType: String) {
+    switch transferType {
+    case "withdraw":
+        if accountType == "debit" {
+            debitWithdraw(transferAmount)
+        } else {
+            withdraw(transferAmount)
+        }
+    case "deposit":
+        if accountType == "credit" {
+            creditDeposit(transferAmount)
+        } else {
+            deposit(transferAmount)
+        }
+    default:
+        break
+    }
+}
+
+var isSystemOpened = true
+var option = 0
+repeat {
+    print("What would you like to do?")
+    print("1. Check bank account")
+    print("2. Withdraw money")
+    print("3. Deposit money")
+    print("4. Close the system")
+    print("Which option do you choose? (1, 2, 3, or 4)")
+    option = Int.random(in:1...5)
+    print("Selected option: \(option)")
+    
+    switch option {
+    case 1: print("Current balance: $\(balance) dollars")
+    case 2: transferMoney("withdraw")
+    case 3: transferMoney("deposit")
+    case 4:
+        isSystemOpened = false
+        print("The system is closed.")
+    default: break
+    }
+} while isSystemOpened == true
