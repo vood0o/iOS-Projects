@@ -43,6 +43,7 @@ repeat {
     default: break
     }
 } while accountType == ""
+
 var balance = 100
 let transferAmount = 50
 print("Current balance: $\(balance)")
