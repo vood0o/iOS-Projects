@@ -17,3 +17,13 @@ allPhoneNumbers.remove("222-345-3441")
 confirmationCodes.remove("LL3456")
 
 print("All phone numbers: \(allPhoneNumbers.count). Confirmation codes: \(confirmationCodes.count)")
+
+//var listOfNumbers = Set<Int>()
+//
+//listOfNumbers.insert(1)
+//listOfNumbers.insert(5)
+//listOfNumbers.insert(8)
+//listOfNumbers.insert(3)
+//listOfNumbers.insert(1)
+//
+//print(listOfNumbers.count)
